@@ -32,15 +32,20 @@ const (
 	KeyInventorySeller = "inventory:%s"
 	ItemSeller         = "%s.%s"
 	KeyMarket          = "market:"
-	KeyUser = "users:%s"
-	FieldFunds = "funds"
+	KeyUser            = "users:%s"
+	FieldFunds         = "funds"
 )
 
 const (
 	KeyLogRecent = "recent:%s:%s"
 	KeyLogCommon = "common:%s:%s"
-	KeyStartSuf = ":start"
-	KeyLastSuf = ":last"
+	KeyStartSuf  = ":start"
+	KeyLastSuf   = ":last"
 	KeyPStartSuf = ":pstart"
 )
 
+const (
+	PrecName     = "%d:%s"
+	KeyKnown     = "known:"
+	KeyCountHash = "count:%s"
+)
