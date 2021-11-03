@@ -22,5 +22,10 @@ func (c *Counter) Reset() {
 	c.RC.FlushDB(ctx)
 }
 
-func (c *Counter) Update(name string, count int, now time.Time) {
+func (c *Counter) Update(name string, count int, now time.Time) error {
+	return nil
+}
+
+func (c *Counter) Get(name string, precision int) error {
+	return nil
 }
