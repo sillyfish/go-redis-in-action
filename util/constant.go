@@ -45,7 +45,8 @@ const (
 )
 
 const (
-	PrecName     = "%d:%s"
-	KeyKnown     = "known:"
-	KeyCountHash = "count:%s"
+	PrecName         = "%d:%s"
+	KeyKnown         = "known:"
+	KeyCountHash     = "count:%s"
+	KeyCountPrecName = "count:%d:%s"
 )

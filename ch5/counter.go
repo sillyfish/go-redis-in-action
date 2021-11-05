@@ -51,7 +51,7 @@ type Datum struct {
 }
 
 func (c *Counter) Get(name string, precision int) ([]Datum, error) {
-	hash := fmt.Sprintf(util.PrecName, precision, name)
+	hash := fmt.Sprintf(util.KeyCountPrecName, precision, name)
 	result, err := c.RC.HGetAll(ctx, hash).Result()
 	if err != nil {
 		return nil, err
@@ -78,11 +78,12 @@ func (c *Counter) Get(name string, precision int) ([]Datum, error) {
 	return data, nil
 }
 
-func (c *Counter) Clean(countLeftChan <-chan int64) {
+func (c *Counter) Clean(countLeftChan <-chan int64, timeNow func() time.Time) {
 	var passes int
 	rc := c.RC
+	var countLeft int64 = 100
 	for {
-		start := time.Now()
+		start := timeNow()
 		var index int64
 		for index < rc.ZCard(ctx, util.KeyKnown).Val() {
 			result, err := rc.ZRange(ctx, util.KeyKnown, index, index).Result()
@@ -100,12 +101,11 @@ func (c *Counter) Clean(countLeftChan <-chan int64) {
 			}
 
 			hkey := fmt.Sprintf(util.KeyCountHash, hash)
-			var countLeft int64 = 100
 			select {
 			case countLeft = <-countLeftChan:
 			default:
 			}
-			cutoff := time.Now().Unix() - countLeft*int64(prec)
+			cutoff := timeNow().Unix() - countLeft*int64(prec)
 			samples, err := rc.HKeys(ctx, hkey).Result()
 			if err != nil {
 				break
