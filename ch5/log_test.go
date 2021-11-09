@@ -15,12 +15,15 @@ import (
 
 var logger *Log
 var counter *Counter
+var stat *Stat
 
 func TestMain(m *testing.M) {
 	logger = NewLog(redisConn.ConnectRedis())
 	defer logger.Reset()
 	counter = NewCounter(redisConn.ConnectRedis())
 	defer counter.Reset()
+	stat = NewStat(redisConn.ConnectRedis())
+	defer stat.Reset()
 	m.Run()
 }
 

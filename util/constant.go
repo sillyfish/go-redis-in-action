@@ -50,3 +50,9 @@ const (
 	KeyCountHash     = "count:%s"
 	KeyCountPrecName = "count:%d:%s"
 )
+
+const (
+	KeyStats             = "stats:%s:%s"
+	JsonStats            = "\"%s\": %f"
+	KeySlowestAccessTime = "slowest:AccessTime"
+)

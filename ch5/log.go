@@ -101,7 +101,7 @@ func (l *Log) Common(name, message string, severity LogSeverity) error {
 				return l.Recent(name, message, severity, pipe)
 			})
 			return err
-		}, startKey); err == context.DeadlineExceeded {
+		}, startKey); err == nil || err == context.DeadlineExceeded {
 			break
 		} else if err != redis.TxFailedErr {
 			return err
